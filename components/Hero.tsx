@@ -13,16 +13,6 @@ import { WHATSAPP_URL } from '../constants';
 import HeroPhoneMock from './HeroPhoneMock';
 
 const Hero: React.FC = () => {
-  const scrollToForm = () => {
-    const el = document.getElementById('booking-form');
-    el?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToPricing = () => {
-    const el = document.getElementById('pricing');
-    el?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gradient-to-b from-[#fdfaf2] to-[#fffbeb]">
       {/* Background Decorations */}
@@ -71,7 +61,7 @@ const Hero: React.FC = () => {
                 <ChevronLeft className="w-7 h-7 group-hover:-translate-x-1 transition-transform" />
               </a>
               <button 
-                onClick={scrollToPricing}
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="bg-white text-blue-900 border-2 border-slate-100 px-10 py-5 md:px-12 md:py-6 rounded-2xl font-black text-xl md:text-2xl shadow-sm hover:border-blue-200 hover:bg-slate-50 transition-all"
               >
                 عرض السعر
@@ -94,6 +84,14 @@ const Hero: React.FC = () => {
                 </div>
               ))}
             </div>
+            
+            <button 
+              onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
+              className="mt-12 flex items-center gap-3 text-blue-600 font-black text-xl hover:underline group"
+            >
+              <ChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+              اطلب معاينة مجانية الآن
+            </button>
           </motion.div>
 
           {/* Column 2: The SINGLE Smartphone Mockup */}

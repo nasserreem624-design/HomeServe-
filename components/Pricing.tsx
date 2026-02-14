@@ -5,11 +5,6 @@ import { Check, X, MessageCircle } from 'lucide-react';
 import { PRICING_TIERS, WHATSAPP_URL } from '../constants';
 
 const Pricing: React.FC = () => {
-  const scrollToForm = () => {
-    const el = document.getElementById('booking-form');
-    el?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="pricing" className="py-24 bg-white relative">
       <div className="container mx-auto px-6">
@@ -50,7 +45,7 @@ const Pricing: React.FC = () => {
               </ul>
               <div className="space-y-4">
                 <button 
-                  onClick={scrollToForm}
+                  onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
                   className={`w-full py-5 rounded-2xl font-black text-lg transition-all ${
                     tier.recommended 
                       ? 'bg-blue-600 text-white shadow-xl shadow-blue-200 hover:bg-blue-700' 
