@@ -1,0 +1,9 @@
+{
+  "name": "HomeServe Pro - خدمات صيانة منزلية",
+  "description": "منصة حجز خدمات منزلية متكاملة في مصر: سباكة، كهرباء، تكييف ونظافة مع ضمان 30 يوم وفنيين معتمدين.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

@@ -1,0 +1,216 @@
+
+import React, { useEffect, useState } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import ServicesGrid from './components/ServicesGrid';
+import HowItWorks from './components/HowItWorks';
+import SocialProof from './components/SocialProof';
+import Pricing from './components/Pricing';
+import AppDownload from './components/AppDownload';
+import BookingForm from './components/BookingForm';
+import FAQ from './components/FAQ';
+import Footer from './components/Footer';
+import AboutDetail from './components/AboutDetail';
+import ServicesDetail from './components/ServicesDetail';
+import PricingDetail from './components/PricingDetail';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { ChevronUp, ShieldCheck, Star } from 'lucide-react';
+
+const App: React.FC = () => {
+  const [currentView, setCurrentView] = useState('home');
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const [showTopBtn, setShowTopBtn] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderView = () => {
+    switch (currentView) {
+      case 'about':
+        return <AboutDetail />;
+      case 'services':
+        return <ServicesDetail />;
+      case 'pricing':
+        return <PricingDetail />;
+      case 'faq':
+        return (
+          <div className="pt-24">
+             <FAQ />
+          </div>
+        );
+      case 'booking':
+        return (
+          <div className="pt-24">
+             <BookingForm />
+          </div>
+        );
+      default:
+        return (
+          <>
+            <Hero />
+            
+            {/* قسم نبذة عننا المطور */}
+            <div id="about-summary" className="py-24 bg-white/40">
+              <div className="container mx-auto px-6">
+                <div className="grid md:grid-cols-2 gap-20 items-center">
+                  <div className="relative order-2 md:order-1">
+                    <div className="bg-[#1e40af] rounded-[3rem] p-12 md:p-16 relative overflow-hidden shadow-2xl shadow-blue-900/20">
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                      <div className="relative z-10 text-white">
+                        <div className="inline-flex p-3 bg-white/10 rounded-2xl mb-6">
+                          <ShieldCheck className="w-8 h-8 text-[#10b981]" />
+                        </div>
+                        <h3 className="text-4xl font-black mb-8 leading-tight">مين HomeServe Pro؟</h3>
+                        <p className="text-lg font-bold leading-relaxed mb-8 opacity-90">
+                          إحنا حلقة الوصل الموثوقة بينك وبين أحسن فنيين في مصر. بدأنا عشان نغير مفهوم الصيانة ونخليها تجربة سهلة، شفافة، ومضمونة ١٠٠٪.
+                        </p>
+                        <ul className="space-y-4 mb-10">
+                          <li className="flex items-center gap-3 font-bold">
+                            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            فنيين تم اختيارهم بعناية فائقة
+                          </li>
+                          <li className="flex items-center gap-3 font-bold">
+                            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            أسعار ثابتة بدون "فصال"
+                          </li>
+                        </ul>
+                        <button 
+                          onClick={() => setCurrentView('about')}
+                          className="bg-white text-blue-900 px-8 py-4 rounded-2xl font-black hover:bg-orange-500 hover:text-white transition-all shadow-lg"
+                        >
+                          اعرف حكايتنا كاملة
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="text-right order-1 md:order-2">
+                    <div className="flex items-center gap-2 text-orange-600 font-black mb-4 uppercase tracking-wider">
+                       <Star className="w-5 h-5 fill-orange-500" />
+                       <span>الجودة هي الأساس</span>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">إحنا مش مجرد تطبيق.. إحنا شركاء راحتك في بيتك</h2>
+                    <p className="text-xl text-slate-600 leading-relaxed mb-10">
+                      في HomeServe Pro، هدفنا إنك لما تطلب خدمة، تنسى همها خالص. كل فني بينضم لينا بيعدي باختبارات فنية وسلوكية عشان نضمن لك أعلى مستوى من الاحترافية والأمان داخل بيتك.
+                    </p>
+                    <div className="grid grid-cols-2 gap-8">
+                      <div className="p-8 glass rounded-[2rem] border-blue-50 hover:bg-white transition-all shadow-md">
+                        <span className="text-4xl font-black text-blue-600 block mb-2">+٥٠٠</span>
+                        <span className="text-slate-500 font-bold">فني متخصص ومعتمد</span>
+                      </div>
+                      <div className="p-8 glass rounded-[2rem] border-orange-50 hover:bg-white transition-all shadow-md">
+                        <span className="text-4xl font-black text-orange-500 block mb-2">١٥ د</span>
+                        <span className="text-slate-500 font-bold">متوسط زمن الاستجابة</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div onClick={() => setCurrentView('services')} className="cursor-pointer group">
+              <ServicesGrid />
+              <div className="text-center pb-12 bg-white/50">
+                <button className="text-blue-600 font-black text-xl group-hover:underline">عرض كل تفاصيل الخدمات</button>
+              </div>
+            </div>
+            
+            <HowItWorks />
+            <SocialProof />
+            
+            <div onClick={() => setCurrentView('pricing')} className="cursor-pointer">
+              <Pricing />
+              <div className="text-center pb-12">
+                <button className="text-blue-600 font-black text-xl hover:underline">إزاي بنحسب الأسعار؟ شوف التفاصيل</button>
+              </div>
+            </div>
+            
+            <AppDownload />
+            <BookingForm />
+            <FAQ />
+          </>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen selection:bg-blue-100 selection:text-blue-600">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1.5 bg-blue-600 z-[60] origin-right"
+        style={{ scaleX }}
+      />
+
+      <Navbar onNavigate={setCurrentView} currentView={currentView} />
+      
+      <main>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentView}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {renderView()}
+          </motion.div>
+        </AnimatePresence>
+
+        {currentView === 'home' && (
+          <section className="py-24 bg-white/30">
+            <div className="container mx-auto px-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-blue-700 rounded-[4rem] p-12 md:p-20 text-center text-white shadow-2xl shadow-blue-200 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+                
+                <h2 className="text-4xl md:text-6xl font-black mb-8 relative z-10">مستني إيه؟ ريح بالك دلوقتي!</h2>
+                <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
+                  <button onClick={() => setCurrentView('booking')} className="bg-[#f97316] text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl hover:scale-105 hover:bg-orange-600 transition-all">
+                    احجز خدمتك دلوقتي
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        )}
+      </main>
+
+      <Footer />
+
+      <AnimatePresence>
+        {showTopBtn && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            onClick={scrollToTop}
+            className="fixed bottom-10 left-10 w-16 h-16 bg-blue-600 text-white rounded-full shadow-2xl z-50 flex items-center justify-center hover:bg-blue-700 hover:scale-110 transition-all active:scale-95"
+          >
+            <ChevronUp className="w-8 h-8" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default App;
