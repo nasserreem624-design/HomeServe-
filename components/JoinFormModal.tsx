@@ -3,13 +3,16 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Phone, MapPin, GraduationCap, Wrench, FileText, CheckCircle2, Loader2 } from 'lucide-react';
+import { X, CheckCircle2, Loader2 } from 'lucide-react';
 import { WHATSAPP_NUMBER } from '../constants';
 
 interface JoinFormModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const EDUCATION_OPTIONS = ["أقل من ثانوي", "ثانوي", "دبلوم", "معهد", "جامعي", "دراسات عليا"];
+const SPECIALTY_OPTIONS = ["سباكة", "كهرباء", "تكييف", "نقاشة/دهان", "نجارة", "صيانة عامة", "تنظيف"];
 
 const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
@@ -21,9 +24,6 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
     specialization: '',
     experience: ''
   });
-
-  const educationOptions = ["أقل من ثانوي", "ثانوي", "دبلوم", "معهد", "جامعي", "دراسات عليا"];
-  const specialtyOptions = ["سباكة", "كهرباء", "تكييف", "نقاشة/دهان", "نجارة", "صيانة عامة", "تنظيف"];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +44,7 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
       window.open(whatsappUrl, '_blank');
       setStatus('success');
     } catch (error) {
+      console.error(error);
       setStatus('idle');
     }
   };
@@ -133,9 +134,22 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
                           onChange={(e) => setFormData({...formData, specialization: e.target.value})}
                         >
                           <option value="">اختر التخصص..</option>
-                          {specialtyOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                          {SPECIALTY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                         </select>
                       </div>
+                    </div>
+
+                    <div className="space-y-2 text-right">
+                      <label className="font-black text-slate-700 text-sm">التعليم</label>
+                      <select
+                        required
+                        className="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-600 outline-none text-right font-bold bg-white"
+                        value={formData.education}
+                        onChange={(e) => setFormData({...formData, education: e.target.value})}
+                      >
+                        <option value="">اختر المستوى التعليمي..</option>
+                        {EDUCATION_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                      </select>
                     </div>
 
                     <div className="space-y-2 text-right">
