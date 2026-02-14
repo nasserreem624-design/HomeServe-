@@ -6,15 +6,11 @@ import {
   Clock, 
   Award, 
   CreditCard, 
-  ChevronLeft, 
-  Wrench, 
-  Hammer, 
-  Zap,
-  Home as HomeIcon,
+  ChevronLeft,
   MapPin
 } from 'lucide-react';
 import { WHATSAPP_URL } from '../constants';
-import BreakingNewsPhoneWidget from './BreakingNewsPhoneWidget';
+import HeroPhoneMock from './HeroPhoneMock';
 
 const Hero: React.FC = () => {
   const scrollToForm = () => {
@@ -36,15 +32,15 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-right">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-right">
           
-          {/* Column 1: Text Content (Right side in RTL) */}
+          {/* Column 1: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 order-1"
+            className="lg:col-span-7"
           >
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
@@ -98,89 +94,18 @@ const Hero: React.FC = () => {
                 </div>
               ))}
             </div>
-            
-            <button 
-              onClick={scrollToForm}
-              className="mt-12 flex items-center gap-3 text-blue-600 font-black text-xl hover:underline group"
-            >
-              <ChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-              اطلب معاينة مجانية الآن
-            </button>
           </motion.div>
 
-          {/* Column 2: Visuals (Left side in RTL) */}
-          <div className="lg:col-span-5 order-2 flex flex-col gap-10 items-center lg:items-start">
-            
-            {/* Breaking News Widget - Dedicated space, no overlap */}
-            <div className="w-full lg:pl-12">
-               <BreakingNewsPhoneWidget />
-            </div>
-
-            {/* Large Visual Representation */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, type: 'spring' }}
-              viewport={{ once: true }}
-              className="relative hidden lg:block w-full"
-            >
-              <div className="relative w-full aspect-square flex items-center justify-center">
-                <div className="absolute w-[80%] h-[80%] bg-blue-600/5 rounded-full blur-[100px]"></div>
-                
-                {/* Smartphone Mockup Animation */}
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative z-30"
-                >
-                  <div className="w-72 h-[580px] bg-slate-900 rounded-[3.5rem] border-[12px] border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.2)] relative overflow-hidden">
-                    <div className="absolute inset-0 bg-white p-6 pt-12 flex flex-col gap-6">
-                       <div className="flex justify-between items-center mb-4">
-                          <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center">
-                             <HomeIcon className="w-6 h-6 text-slate-400" />
-                          </div>
-                          <div className="h-5 w-32 bg-slate-100 rounded-full"></div>
-                       </div>
-                       <div className="h-40 w-full bg-blue-50 rounded-[2rem] border border-blue-100 flex items-center justify-center relative overflow-hidden">
-                          <Zap className="w-16 h-16 text-blue-600 opacity-20 absolute -right-4 -bottom-4 rotate-12" />
-                          <div className="text-center relative z-10">
-                             <p className="text-blue-600 font-black text-sm">أهلاً بيك في هوم سيرف</p>
-                             <p className="text-xs text-blue-400 font-bold">إحنا في جرجا وجاهزين نجيلك</p>
-                          </div>
-                       </div>
-                       <div className="grid grid-cols-2 gap-4">
-                          {['سباكة', 'كهرباء', 'تكييف', 'نظافة'].map((s, i) => (
-                            <div key={i} className="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center hover:border-blue-200 transition-colors">
-                              <span className="text-xs font-black text-slate-900">{s}</span>
-                            </div>
-                          ))}
-                       </div>
-                       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="mt-auto bg-blue-600 text-white py-5 rounded-2xl text-center text-sm font-black shadow-lg shadow-blue-100">
-                          احجز خدمتك دلوقتي
-                       </a>
-                    </div>
-                    <div className="absolute top-0 inset-x-0 h-8 bg-slate-800 w-32 mx-auto rounded-b-3xl z-40"></div>
-                  </div>
-                </motion.div>
-
-                {/* Floating Tools */}
-                <motion.div 
-                  animate={{ y: [-20, 20, -20], x: [0, 10, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-10 right-10 p-8 bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl text-blue-600 border border-white z-40"
-                >
-                  <Wrench className="w-16 h-16" />
-                </motion.div>
-                <motion.div 
-                  animate={{ y: [20, -20, 20], x: [0, -10, 0] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute bottom-1/4 left-0 p-8 bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl text-orange-500 border border-white z-40"
-                >
-                  <Hammer className="w-16 h-16" />
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
+          {/* Column 2: The SINGLE Smartphone Mockup */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, type: 'spring' }}
+            viewport={{ once: true }}
+            className="lg:col-span-5 flex justify-center lg:justify-end"
+          >
+            <HeroPhoneMock />
+          </motion.div>
 
         </div>
       </div>
