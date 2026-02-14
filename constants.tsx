@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { 
   Droplets, 
   Zap, 
@@ -7,11 +6,7 @@ import {
   Sparkles, 
   Wrench, 
   Paintbrush, 
-  Hammer, 
-  Clock, 
-  ShieldCheck, 
-  Users, 
-  CreditCard 
+  Hammer
 } from 'lucide-react';
 import { ServiceCardProps, Testimonial, PriceTier, FAQItem } from './types';
 

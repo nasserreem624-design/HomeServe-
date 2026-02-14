@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SERVICES } from '../constants';
-import { CheckCircle2, ChevronLeft } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 const ServicesDetail: React.FC = () => {
   return (

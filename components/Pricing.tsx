@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, X, ShieldCheck } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { PRICING_TIERS } from '../constants';
 
 const Pricing: React.FC = () => {

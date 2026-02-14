@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Smartphone, Download, QrCode } from 'lucide-react';
+import { Download, QrCode } from 'lucide-react';
 
 const AppDownload: React.FC = () => {
   return (

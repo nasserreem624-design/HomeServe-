@@ -9,8 +9,7 @@ import {
   ChevronLeft, 
   Wrench, 
   Hammer, 
-  Zap,
-  Smartphone
+  Zap
 } from 'lucide-react';
 
 const Hero: React.FC = () => {
