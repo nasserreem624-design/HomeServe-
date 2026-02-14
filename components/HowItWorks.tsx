@@ -27,8 +27,9 @@ const HowItWorks: React.FC = () => {
 
   return (
     <section className="py-24 bg-blue-900 text-white overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20 -mr-48 -mt-48"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 rounded-full blur-3xl opacity-20 -ml-48 -mb-48"></div>
+      {/* Decorative background circles - added pointer-events-none */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20 -mr-48 -mt-48 pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 rounded-full blur-3xl opacity-20 -ml-48 -mb-48 pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
@@ -48,7 +49,7 @@ const HowItWorks: React.FC = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="text-8xl font-black text-white/10 absolute -top-8 right-0 leading-none">
+              <div className="text-8xl font-black text-white/10 absolute -top-8 right-0 leading-none pointer-events-none">
                 {step.step}
               </div>
               <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/20 h-full">

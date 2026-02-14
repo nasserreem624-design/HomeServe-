@@ -50,13 +50,13 @@ const App: React.FC = () => {
         return <PricingDetail />;
       case 'faq':
         return (
-          <div className="pt-24">
+          <div className="pt-24 relative z-10">
              <FAQ />
           </div>
         );
       case 'booking':
         return (
-          <div className="pt-24">
+          <div className="pt-24 relative z-10">
              <BookingForm />
           </div>
         );
@@ -65,12 +65,13 @@ const App: React.FC = () => {
           <>
             <Hero />
             
-            <div id="about" className="py-24 bg-white/40">
-              <div className="container mx-auto px-6">
+            <div id="about" className="py-24 bg-white/40 relative">
+              <div className="container mx-auto px-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-20 items-center">
                   <div className="relative order-2 md:order-1">
                     <div className="bg-[#1e40af] rounded-[3rem] p-12 md:p-16 relative overflow-hidden shadow-2xl shadow-blue-900/20">
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                      {/* Decorative elements - STRICT pointer-events-none */}
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none z-0"></div>
                       <div className="relative z-10 text-white">
                         <div className="inline-flex p-3 bg-white/10 rounded-2xl mb-6">
                           <ShieldCheck className="w-8 h-8 text-[#10b981]" />
@@ -91,7 +92,7 @@ const App: React.FC = () => {
                         </ul>
                         <button 
                           onClick={() => setCurrentView('about')}
-                          className="bg-white text-blue-900 px-8 py-4 rounded-2xl font-black hover:bg-orange-500 hover:text-white transition-all shadow-lg"
+                          className="bg-white text-blue-900 px-8 py-4 rounded-2xl font-black hover:bg-orange-500 hover:text-white transition-all shadow-lg cursor-pointer relative z-20 pointer-events-auto"
                         >
                           اعرف حكايتنا كاملة
                         </button>
@@ -123,10 +124,10 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div id="services">
+            <div id="services" className="relative">
               <ServicesGrid />
-              <div className="text-center pb-12 bg-white/50">
-                <button onClick={() => setCurrentView('services')} className="text-blue-600 font-black text-xl hover:underline">عرض كل تفاصيل الخدمات</button>
+              <div className="text-center pb-12 bg-white/50 relative z-20 pointer-events-auto">
+                <button onClick={() => setCurrentView('services')} className="text-blue-600 font-black text-xl hover:underline cursor-pointer">عرض كل تفاصيل الخدمات</button>
               </div>
             </div>
             
@@ -136,9 +137,9 @@ const App: React.FC = () => {
             <Pricing />
 
             {/* Join as Technician Section */}
-            <section id="join" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-              <div className="container mx-auto px-6">
-                <div className="bg-white rounded-[3rem] p-12 md:p-20 shadow-xl border border-blue-100 flex flex-col md:flex-row items-center gap-16">
+            <section id="join" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative">
+              <div className="container mx-auto px-6 relative z-10">
+                <div className="bg-white rounded-[3rem] p-12 md:p-20 shadow-xl border border-blue-100 flex flex-col md:flex-row items-center gap-16 relative">
                   <div className="md:w-1/2 order-2 md:order-1">
                     <div className="grid grid-cols-2 gap-6">
                       <div className="bg-slate-50 p-6 rounded-2xl flex flex-col items-center text-center">
@@ -171,7 +172,7 @@ const App: React.FC = () => {
                       href={WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-600 transition-all shadow-lg"
+                      className="inline-block bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-600 transition-all shadow-lg cursor-pointer relative z-20 pointer-events-auto"
                     >
                       قدم طلب انضمام دلوقتي
                     </a>
@@ -191,13 +192,13 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen selection:bg-blue-100 selection:text-blue-600" style={{ scrollBehavior: 'smooth' }}>
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1.5 bg-blue-600 z-[60] origin-right"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-blue-600 z-[9999] origin-right pointer-events-none"
         style={{ scaleX }}
       />
 
       <Navbar onNavigate={setCurrentView} currentView={currentView} />
       
-      <main>
+      <main className="relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentView}
@@ -211,24 +212,25 @@ const App: React.FC = () => {
         </AnimatePresence>
 
         {currentView === 'home' && (
-          <section className="py-24 bg-white/30">
-            <div className="container mx-auto px-6">
+          <section className="py-24 bg-white/30 relative">
+            <div className="container mx-auto px-6 relative z-10">
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="bg-blue-700 rounded-[4rem] p-12 md:p-20 text-center text-white shadow-2xl shadow-blue-200 relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+                {/* Background decorative elements - STRICT pointer-events-none */}
+                <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl pointer-events-none z-0"></div>
+                <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full -mr-40 -mb-40 blur-3xl pointer-events-none z-0"></div>
                 
                 <h2 className="text-4xl md:text-6xl font-black mb-8 relative z-10">مستني إيه؟ ريح بالك دلوقتي!</h2>
-                <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
+                <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-20 pointer-events-auto">
                   <a 
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#f97316] text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl hover:scale-105 hover:bg-orange-600 transition-all inline-block"
+                    className="bg-[#f97316] text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl hover:scale-105 hover:bg-orange-600 transition-all inline-block cursor-pointer relative z-[9999]"
                   >
                     احجز خدمتك دلوقتي
                   </a>
@@ -241,12 +243,12 @@ const App: React.FC = () => {
 
       <Footer />
 
-      {/* WhatsApp Floating Button */}
+      {/* WhatsApp Floating Button - Ensure z-index is high and pointer-events-auto */}
       <a 
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-10 left-10 w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl z-50 flex items-center justify-center hover:scale-110 transition-all active:scale-95"
+        className="fixed bottom-10 left-10 w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl z-[10000] flex items-center justify-center hover:scale-110 transition-all active:scale-95 cursor-pointer pointer-events-auto"
         title="تواصل معنا عبر واتساب"
       >
         <MessageCircle className="w-9 h-9" />
@@ -259,7 +261,7 @@ const App: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={scrollToTop}
-            className="fixed bottom-10 right-10 w-12 h-12 bg-white text-blue-600 border border-blue-100 rounded-full shadow-xl z-50 flex items-center justify-center hover:bg-slate-50 transition-all"
+            className="fixed bottom-10 right-10 w-12 h-12 bg-white text-blue-600 border border-blue-100 rounded-full shadow-xl z-[10000] flex items-center justify-center hover:bg-slate-50 transition-all cursor-pointer pointer-events-auto"
           >
             <ChevronUp className="w-6 h-6" />
           </motion.button>
