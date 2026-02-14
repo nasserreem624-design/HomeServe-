@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, Loader2, Sparkles, PhoneCall } from 'lucide-react';
-import { CITIES } from '../constants';
+import { CITIES, WHATSAPP_NUMBER } from '../constants';
 
 const BookingForm: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
@@ -19,15 +19,23 @@ const BookingForm: React.FC = () => {
     e.preventDefault();
     setStatus('loading');
 
-    // ملاحظة للمطور: لإرسال الرسالة فعلياً لهاتفك تلقائياً (بدون العميل)
-    // يجب استخدام خدمة مثل (UltraMsg API) وإرسال الطلب عبر fetch
-    // مثال: fetch('https://api.ultramsg.com/.../messages/chat', { method: 'POST', ... })
+    // تجهيز نص الرسالة للواتساب
+    const message = `طلب حجز خدمة جديد من الموقع:
+الاسم: ${formData.name}
+الموبايل: ${formData.phone}
+المدينة: ${formData.city}
+الخدمة المطلوبة: ${formData.service}
+التفاصيل: ${formData.details || 'لا يوجد تفاصيل إضافية'}`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
     try {
-      // محاكاة عملية الإرسال للنظام
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // محاكاة بسيطة للتحميل لزيادة المصداقية
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      console.log("البيانات المرسلة للنظام:", formData);
+      // فتح الواتساب في تبويب جديد
+      window.open(whatsappUrl, '_blank');
+      
       setStatus('success');
     } catch (error) {
       console.error("خطأ في الإرسال");
@@ -51,16 +59,16 @@ const BookingForm: React.FC = () => {
           <div className="md:w-1/2 text-right">
             <h2 className="text-4xl font-black text-slate-900 mb-6 italic">جاهز للصيانة؟</h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed font-bold">
-              بياناتك بتوصل لغرفة العمليات عندنا في ثواني، وهنتصل بيك فوراً لتأكيد ميعاد الزيارة.
+              بمجرد ضغطك على "أرسل الطلب"، هيتفتح الواتساب برسالة جاهزة ببياناتك، ابعتها لينا وهنرد عليك فوراً.
             </p>
             
             <div className="space-y-6">
               <div className="bg-white/50 p-6 rounded-2xl border border-blue-50 flex items-center gap-4 justify-end">
-                <span className="font-bold text-slate-700">تأكيد فوري وتلقائي</span>
+                <span className="font-bold text-slate-700">تواصل مباشر عبر الواتساب</span>
                 <div className="bg-blue-600 p-2 rounded-lg text-white"><Sparkles className="w-5 h-5" /></div>
               </div>
               <div className="bg-white/50 p-6 rounded-2xl border border-blue-50 flex items-center gap-4 justify-end">
-                <span className="font-bold text-slate-700">متابعة هاتفية خلال دقايق</span>
+                <span className="font-bold text-slate-700">تأكيد الموعد في دقايق</span>
                 <div className="bg-blue-600 p-2 rounded-lg text-white"><PhoneCall className="w-5 h-5" /></div>
               </div>
             </div>
@@ -139,11 +147,11 @@ const BookingForm: React.FC = () => {
                     {status === 'loading' ? (
                       <>
                         <Loader2 className="w-6 h-6 animate-spin" />
-                        <span>جاري إرسال طلبك...</span>
+                        <span>جاري التحويل للواتساب...</span>
                       </>
                     ) : (
                       <>
-                        <span>أرسل الطلب الآن</span>
+                        <span>أرسل الطلب عبر واتساب</span>
                         <Send className="w-5 h-5 rotate-180" />
                       </>
                     )}
@@ -159,21 +167,17 @@ const BookingForm: React.FC = () => {
                   <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
                     <CheckCircle2 className="w-16 h-16" />
                   </div>
-                  <h3 className="text-3xl font-black text-slate-900 mb-4">تم استلام طلبك بنجاح! ✅</h3>
+                  <h3 className="text-3xl font-black text-slate-900 mb-4">تم التحويل بنجاح! ✅</h3>
                   <p className="text-xl text-slate-600 leading-relaxed font-bold">
-                    طلبك وصل لينا دلوقتي على السيستم. <br /> 
-                    هنتصل بيك فوراً على رقم <span className="text-blue-600" dir="ltr">{formData.phone}</span> لتأكيد الموعد.
+                    تم فتح الواتساب برسالة تحتوي على بياناتك. <br /> 
+                    برجاء الضغط على زر "إرسال" داخل الواتساب لتصلنا بياناتك فوراً.
                   </p>
                   
-                  <div className="mt-10 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                    <p className="text-slate-400 font-bold text-sm">رقم العملية: #{Math.floor(10000 + Math.random() * 90000)}</p>
-                  </div>
-
                   <button 
                     onClick={() => setStatus('idle')}
                     className="mt-8 text-blue-600 font-black hover:underline"
                   >
-                    عمل حجز آخر
+                    تعديل البيانات وإعادة الإرسال
                   </button>
                 </motion.div>
               )}

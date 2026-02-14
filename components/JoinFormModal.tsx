@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Phone, MapPin, GraduationCap, Wrench, FileText, CheckCircle2, Loader2 } from 'lucide-react';
+import { WHATSAPP_NUMBER } from '../constants';
 
 interface JoinFormModalProps {
   isOpen: boolean;
@@ -28,9 +29,19 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     setStatus('loading');
 
+    const message = `طلب انضمام فني جديد:
+الاسم: ${formData.name}
+الموبايل: ${formData.phone}
+العنوان: ${formData.address}
+التعليم: ${formData.education}
+التخصص: ${formData.specialization}
+الخبرة: ${formData.experience || 'لم يتم ذكر تفاصيل'}`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
     try {
-      // محاكاة إرسال البيانات
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      window.open(whatsappUrl, '_blank');
       setStatus('success');
     } catch (error) {
       setStatus('idle');
@@ -75,10 +86,9 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
                     <div className="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-8">
                       <CheckCircle2 className="w-16 h-16" />
                     </div>
-                    <h4 className="text-3xl font-black text-slate-900 mb-4">تم استلام طلبك! ✅</h4>
+                    <h4 className="text-3xl font-black text-slate-900 mb-4">تم التحويل للواتساب! ✅</h4>
                     <p className="text-xl text-slate-600 font-bold leading-relaxed mb-10">
-                      شكراً لرغبتك في الانضمام. <br />
-                      فريق التوظيف هيراجع بياناتك وهنتصل بيك خلال ٢٤ ساعة.
+                      برجاء إرسال الرسالة المفتوحة الآن في تطبيق الواتساب لنتمكن من مراجعة طلبك.
                     </p>
                     <button 
                       onClick={onClose}
@@ -143,7 +153,12 @@ const JoinFormModal: React.FC<JoinFormModalProps> = ({ isOpen, onClose }) => {
                       disabled={status === 'loading'}
                       className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-xl shadow-xl hover:bg-blue-600 transition-all flex items-center justify-center gap-3"
                     >
-                      {status === 'loading' ? <Loader2 className="w-6 h-6 animate-spin" /> : 'تقديم الطلب'}
+                      {status === 'loading' ? (
+                        <>
+                          <Loader2 className="w-6 h-6 animate-spin" />
+                          <span>جاري التحويل...</span>
+                        </>
+                      ) : 'إرسال الطلب عبر واتساب'}
                     </button>
                   </form>
                 )}
