@@ -10,17 +10,16 @@ import {
   Wrench, 
   Hammer, 
   Zap,
-  Smartphone,
-  Settings
+  Smartphone
 } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gradient-to-b from-[#fdfaf2] to-[#fffbeb]">
-      {/* عناصر خلفية جمالية */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100 blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-100 blur-[120px] rounded-full"></div>
+      {/* عناصر جمالية في الخلفية */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-100 blur-[150px] rounded-full"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100 blur-[150px] rounded-full"></div>
       </div>
 
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -35,7 +34,7 @@ const Hero: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md border border-blue-100 text-blue-700 px-5 py-2 rounded-full font-bold mb-8 shadow-sm"
+            className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-md border border-blue-100 text-blue-700 px-5 py-2 rounded-full font-bold mb-8 shadow-sm"
           >
             <Award className="w-5 h-5 text-orange-500" />
             <span>المنصة المعتمدة رقم 1 في مصر</span>
@@ -87,75 +86,67 @@ const Hero: React.FC = () => {
         >
           <div className="relative w-full aspect-square flex items-center justify-center">
             
-            {/* الظل الواقعي على الأرضية */}
-            <div className="absolute bottom-20 w-[80%] h-20 bg-slate-900/10 blur-[60px] rounded-full scale-y-50"></div>
+            {/* الظل الواقعي */}
+            <div className="absolute bottom-10 w-[80%] h-20 bg-slate-900/10 blur-[80px] rounded-full scale-y-50"></div>
 
-            {/* الهاتف الذكي Realistic */}
+            {/* الهاتف الذكي */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute left-0 bottom-10 z-30 transform -rotate-6"
             >
-              <div className="w-56 h-[450px] bg-slate-900 rounded-[3rem] border-[8px] border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                {/* واجهة التطبيق بالعربي */}
-                <div className="absolute inset-0 bg-white p-4 pt-10 flex flex-col gap-4">
-                  <div className="flex justify-between items-center px-2">
-                    <div className="w-10 h-10 rounded-full bg-slate-100"></div>
-                    <div className="h-4 w-24 bg-slate-100 rounded-full"></div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mt-4">
-                    {['سباكة', 'كهرباء', 'تكييف', 'تنظيف'].map((s, i) => (
-                      <div key={i} className="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex flex-col items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-blue-50"></div>
-                        <span className="text-[10px] font-black text-slate-900">{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-auto bg-orange-500 text-white py-3 rounded-2xl text-center text-xs font-black shadow-lg">
-                    احجز دلوقتي
-                  </div>
+              <div className="w-60 h-[480px] bg-slate-900 rounded-[3rem] border-[10px] border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.3)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-white p-5 pt-12 flex flex-col gap-5">
+                   <div className="flex justify-between items-center">
+                      <div className="w-10 h-10 rounded-full bg-slate-100"></div>
+                      <div className="h-4 w-28 bg-slate-100 rounded-full"></div>
+                   </div>
+                   <div className="h-32 w-full bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center">
+                      <Zap className="w-12 h-12 text-blue-600 opacity-20" />
+                   </div>
+                   <div className="grid grid-cols-2 gap-3">
+                      {['سباكة', 'كهرباء', 'تكييف', 'نظافة'].map((s, i) => (
+                        <div key={i} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
+                          <span className="text-[10px] font-black text-slate-900">{s}</span>
+                        </div>
+                      ))}
+                   </div>
+                   <div className="mt-auto bg-orange-500 text-white py-4 rounded-2xl text-center text-xs font-black">
+                      احجز خدمتك دلوقتي
+                   </div>
                 </div>
-                {/* Notch */}
-                <div className="absolute top-0 inset-x-0 h-6 bg-slate-800 w-24 mx-auto rounded-b-2xl z-40"></div>
+                <div className="absolute top-0 inset-x-0 h-7 bg-slate-800 w-28 mx-auto rounded-b-2xl z-40"></div>
               </div>
             </motion.div>
 
-            {/* المنزل Modern Isometric Realistic */}
+            {/* المنزل 3D Realistic */}
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-20 scale-125"
+              className="relative z-20 scale-110"
             >
               <img 
-                src="https://img.freepik.com/premium-photo/modern-house-concept-3d-render_53876-134376.jpg" 
-                alt="Realistic Modern Home 3D"
-                className="w-full h-full object-contain drop-shadow-[0_60px_60px_rgba(0,0,0,0.25)] rounded-[4rem]"
+                src="https://img.freepik.com/premium-photo/modern-luxury-villa-3d-render-isometric-view_53876-134376.jpg?w=1000" 
+                alt="Realistic Modern Home"
+                className="w-full h-full object-contain drop-shadow-[0_80px_80px_rgba(0,0,0,0.2)] rounded-[5rem]"
               />
             </motion.div>
 
-            {/* أدوات عائمة Realistic (Brushed Metal) */}
+            {/* الأدوات العائمة */}
             <motion.div 
-              animate={{ y: [-30, 30, -30], rotate: [0, 20, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-10 right-10 p-5 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl text-slate-700 border border-white"
+              animate={{ y: [-40, 40, -40], rotate: [0, 30, 0] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-10 right-5 p-6 bg-white/95 backdrop-blur-md rounded-[2rem] shadow-2xl text-slate-700 border border-white"
             >
-              <Wrench className="w-12 h-12" />
+              <Wrench className="w-14 h-14" />
             </motion.div>
 
             <motion.div 
-              animate={{ y: [30, -30, 30], rotate: [0, -20, 0] }}
+              animate={{ y: [40, -40, 40], rotate: [0, -25, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-1/3 -right-10 p-5 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl text-slate-700 border border-white"
+              className="absolute bottom-1/4 -right-12 p-6 bg-white/95 backdrop-blur-md rounded-[2rem] shadow-2xl text-slate-700 border border-white"
             >
-              <Hammer className="w-12 h-12" />
-            </motion.div>
-
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="absolute top-1/2 left-1/4 p-4 bg-orange-100 rounded-full shadow-lg text-orange-500 z-10"
-            >
-              <Zap className="w-10 h-10 fill-orange-500" />
+              <Hammer className="w-14 h-14" />
             </motion.div>
 
           </div>
