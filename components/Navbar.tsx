@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { WHATSAPP_URL } from '../constants';
 
 interface NavbarProps {
   onNavigate: (view: string) => void;
@@ -29,10 +28,14 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
   const handleLinkClick = (id: string) => {
     if (currentView !== 'home') {
       onNavigate('home');
-    }
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      // انتظار بسيط للتأكد من تحميل الصفحة الرئيسية قبل التمرير
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
     setIsOpen(false);
   };
@@ -58,14 +61,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
                 {link.name}
               </button>
             ))}
-            <a 
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all hover:scale-105 active:scale-95"
+            <button 
+              onClick={() => handleLinkClick('booking-form')}
+              className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               احجز دلوقتي
-            </a>
+            </button>
           </div>
 
           <button className="md:hidden text-slate-900" onClick={() => setIsOpen(!isOpen)}>
@@ -91,14 +92,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
                     {link.name}
                   </button>
                 ))}
-                <a 
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-blue-600 text-white py-4 rounded-xl text-center font-bold text-lg shadow-md"
+                <button 
+                  onClick={() => handleLinkClick('booking-form')}
+                  className="w-full bg-blue-600 text-white py-4 rounded-xl text-center font-bold text-lg shadow-md cursor-pointer"
                 >
                   احجز دلوقتي
-                </a>
+                </button>
               </div>
             </motion.div>
           )}

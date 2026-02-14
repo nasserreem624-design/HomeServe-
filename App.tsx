@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -13,12 +12,14 @@ import Footer from './components/Footer';
 import AboutDetail from './components/AboutDetail';
 import ServicesDetail from './components/ServicesDetail';
 import PricingDetail from './components/PricingDetail';
+import JoinFormModal from './components/JoinFormModal';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { ChevronUp, ShieldCheck, Star, MessageCircle, Hammer, CheckCircle } from 'lucide-react';
 import { WHATSAPP_URL } from './constants';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState('home');
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -70,7 +71,6 @@ const App: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-20 items-center">
                   <div className="relative order-2 md:order-1">
                     <div className="bg-[#1e40af] rounded-[3rem] p-12 md:p-16 relative overflow-hidden shadow-2xl shadow-blue-900/20">
-                      {/* Decorative elements - STRICT pointer-events-none */}
                       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none z-0"></div>
                       <div className="relative z-10 text-white">
                         <div className="inline-flex p-3 bg-white/10 rounded-2xl mb-6">
@@ -168,14 +168,12 @@ const App: React.FC = () => {
                     <p className="text-xl text-slate-600 leading-relaxed mb-12">
                       لو إنت فني (سباك، كهربائي، تكييف، أو نقاش) ومحترف في شغلك، هوم سيرف برو بتقدملك فرصة تزود دخلك وتشتغل في بيئة احترافية ومحترمة.
                     </p>
-                    <a 
-                      href={WHATSAPP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button 
+                      onClick={() => setIsJoinModalOpen(true)}
                       className="inline-block bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-600 transition-all shadow-lg cursor-pointer relative z-20 pointer-events-auto"
                     >
                       قدم طلب انضمام دلوقتي
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -220,7 +218,6 @@ const App: React.FC = () => {
                 viewport={{ once: true }}
                 className="bg-blue-700 rounded-[4rem] p-12 md:p-20 text-center text-white shadow-2xl shadow-blue-200 relative overflow-hidden"
               >
-                {/* Background decorative elements - STRICT pointer-events-none */}
                 <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl pointer-events-none z-0"></div>
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full -mr-40 -mb-40 blur-3xl pointer-events-none z-0"></div>
                 
@@ -243,7 +240,8 @@ const App: React.FC = () => {
 
       <Footer />
 
-      {/* WhatsApp Floating Button - Ensure z-index is high and pointer-events-auto */}
+      <JoinFormModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
+
       <a 
         href={WHATSAPP_URL}
         target="_blank"

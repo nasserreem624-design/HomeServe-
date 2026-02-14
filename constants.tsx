@@ -1,4 +1,3 @@
-
 import { 
   Droplets, 
   Zap, 
@@ -13,9 +12,13 @@ import { ServiceCardProps, Testimonial, PriceTier, FAQItem } from './types';
 export const WHATSAPP_NUMBER = "201060456161";
 export const PHONE_DISPLAY = "01060456161";
 export const EMAIL_ADDRESS = "nasserreem624@gmail.com";
+
+// رابط واتساب لحجز الخدمة (للعملاء)
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("أهلاً ، عايز أحجز زيارة صيانة من HomeServe Pro")}`;
 
-// تحديث القائمة لتشمل مراكز سوهاج ومدينة جرجا وقراها
+// رابط واتساب لطلبات الانضمام (للفنيين)
+export const TECH_WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("أهلاً هوم سيرف برو، أنا فني وحابب أنضم لفريقكم المتميز. محتاج أعرف التفاصيل وإيه المطلوب؟")}`;
+
 export const CITIES = [
   "جرجا (المدينة)", 
   "جرجا (القرى)", 

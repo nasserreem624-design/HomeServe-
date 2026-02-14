@@ -9,10 +9,14 @@ import {
   ChevronLeft,
   MapPin
 } from 'lucide-react';
-import { WHATSAPP_URL } from '../constants';
 import HeroPhoneMock from './HeroPhoneMock';
 
 const Hero: React.FC = () => {
+  const scrollToBooking = () => {
+    const el = document.getElementById('booking-form');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gradient-to-b from-[#fdfaf2] to-[#fffbeb]">
       {/* Background Decorations - Ensure pointer-events-none */}
@@ -51,15 +55,13 @@ const Hero: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5 mb-16 relative z-20 pointer-events-auto">
-              <a 
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button 
+                onClick={scrollToBooking}
                 className="bg-[#f97316] text-white px-10 py-5 md:px-12 md:py-6 rounded-2xl font-black text-xl md:text-2xl shadow-2xl shadow-orange-200 hover:bg-orange-600 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 group cursor-pointer"
               >
                 احجز خدمة دلوقتي
                 <ChevronLeft className="w-7 h-7 group-hover:-translate-x-1 transition-transform" />
-              </a>
+              </button>
               <button 
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="bg-white text-blue-900 border-2 border-slate-100 px-10 py-5 md:px-12 md:py-6 rounded-2xl font-black text-xl md:text-2xl shadow-sm hover:border-blue-200 hover:bg-slate-50 transition-all cursor-pointer"
