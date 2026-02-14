@@ -15,20 +15,19 @@ import {
 const Hero: React.FC = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gradient-to-b from-[#fdfaf2] to-[#fffbeb]">
-      {/* عناصر جمالية في الخلفية */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-100 blur-[150px] rounded-full"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100 blur-[150px] rounded-full"></div>
+      {/* عناصر جمالية ناعمة جداً في الخلفية */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-50 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-orange-50 blur-[120px] rounded-full"></div>
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10 text-right">
         {/* المحتوى النصي */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-right"
         >
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -75,7 +74,7 @@ const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* العرض البصري 3D Realistic */}
+        {/* العرض البصري المحدث (بدون الألوان المزعجة) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -85,68 +84,67 @@ const Hero: React.FC = () => {
         >
           <div className="relative w-full aspect-square flex items-center justify-center">
             
-            {/* الظل الواقعي */}
-            <div className="absolute bottom-10 w-[80%] h-20 bg-slate-900/10 blur-[80px] rounded-full scale-y-50"></div>
+            {/* دائرة خلفية ناعمة لتركيز الضوء */}
+            <div className="absolute w-[80%] h-[80%] bg-blue-600/5 rounded-full blur-[100px]"></div>
 
-            {/* الهاتف الذكي */}
+            {/* الهاتف الذكي - المركز البصري */}
             <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-0 bottom-10 z-30 transform -rotate-6"
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative z-30"
             >
-              <div className="w-60 h-[480px] bg-slate-900 rounded-[3rem] border-[10px] border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                <div className="absolute inset-0 bg-white p-5 pt-12 flex flex-col gap-5">
-                   <div className="flex justify-between items-center">
-                      <div className="w-10 h-10 rounded-full bg-slate-100"></div>
-                      <div className="h-4 w-28 bg-slate-100 rounded-full"></div>
+              <div className="w-72 h-[580px] bg-slate-900 rounded-[3.5rem] border-[12px] border-slate-800 shadow-[0_50px_100px_rgba(0,0,0,0.2)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-white p-6 pt-12 flex flex-col gap-6">
+                   <div className="flex justify-between items-center mb-4">
+                      <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center">
+                         <Home className="w-6 h-6 text-slate-400" />
+                      </div>
+                      <div className="h-5 w-32 bg-slate-100 rounded-full"></div>
                    </div>
-                   <div className="h-32 w-full bg-blue-50 rounded-2xl border border-blue-100 flex items-center justify-center">
-                      <Zap className="w-12 h-12 text-blue-600 opacity-20" />
+                   <div className="h-40 w-full bg-blue-50 rounded-[2rem] border border-blue-100 flex items-center justify-center relative overflow-hidden">
+                      <Zap className="w-16 h-16 text-blue-600 opacity-20 absolute -right-4 -bottom-4 rotate-12" />
+                      <div className="text-center relative z-10">
+                         <p className="text-blue-600 font-black text-sm">أهلاً بيك في هوم سيرف</p>
+                         <p className="text-xs text-blue-400 font-bold">إحنا جاهزين لمساعدتك</p>
+                      </div>
                    </div>
-                   <div className="grid grid-cols-2 gap-3">
+                   <div className="grid grid-cols-2 gap-4">
                       {['سباكة', 'كهرباء', 'تكييف', 'نظافة'].map((s, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
-                          <span className="text-[10px] font-black text-slate-900">{s}</span>
+                        <div key={i} className="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center hover:border-blue-200 transition-colors">
+                          <span className="text-xs font-black text-slate-900">{s}</span>
                         </div>
                       ))}
                    </div>
-                   <div className="mt-auto bg-orange-500 text-white py-4 rounded-2xl text-center text-xs font-black">
+                   <div className="mt-auto bg-blue-600 text-white py-5 rounded-2xl text-center text-sm font-black shadow-lg shadow-blue-100">
                       احجز خدمتك دلوقتي
                    </div>
                 </div>
-                <div className="absolute top-0 inset-x-0 h-7 bg-slate-800 w-28 mx-auto rounded-b-2xl z-40"></div>
+                <div className="absolute top-0 inset-x-0 h-8 bg-slate-800 w-32 mx-auto rounded-b-3xl z-40"></div>
               </div>
             </motion.div>
 
-            {/* المنزل 3D Realistic */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-20 scale-110"
-            >
-              <img 
-                src="https://img.freepik.com/premium-photo/modern-luxury-villa-3d-render-isometric-view_53876-134376.jpg?w=1000" 
-                alt="Realistic Modern Home"
-                className="w-full h-full object-contain drop-shadow-[0_80px_80px_rgba(0,0,0,0.2)] rounded-[5rem]"
-              />
-            </motion.div>
-
-            {/* الأدوات العائمة */}
+            {/* أيقونات عائمة بدلاً من الصور الملونة */}
             <motion.div 
-              animate={{ y: [-40, 40, -40], rotate: [0, 30, 0] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-10 right-5 p-6 bg-white/95 backdrop-blur-md rounded-[2rem] shadow-2xl text-slate-700 border border-white"
+              animate={{ y: [-20, 20, -20], x: [0, 10, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-10 right-10 p-8 bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl text-blue-600 border border-white z-40"
             >
-              <Wrench className="w-14 h-14" />
+              <Wrench className="w-16 h-16" />
             </motion.div>
 
             <motion.div 
-              animate={{ y: [40, -40, 40], rotate: [0, -25, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-1/4 -right-12 p-6 bg-white/95 backdrop-blur-md rounded-[2rem] shadow-2xl text-slate-700 border border-white"
+              animate={{ y: [20, -20, 20], x: [0, -10, 0] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-1/4 left-0 p-8 bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl text-orange-500 border border-white z-40"
             >
-              <Hammer className="w-14 h-14" />
+              <Hammer className="w-16 h-16" />
             </motion.div>
+
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 -right-4 w-20 h-20 bg-green-500/10 rounded-full blur-2xl"
+            ></motion.div>
 
           </div>
         </motion.div>
@@ -154,5 +152,8 @@ const Hero: React.FC = () => {
     </section>
   );
 };
+
+// استيراد أيقونة Home الناقصة
+import { Home } from 'lucide-react';
 
 export default Hero;
