@@ -14,7 +14,8 @@ import AboutDetail from './components/AboutDetail';
 import ServicesDetail from './components/ServicesDetail';
 import PricingDetail from './components/PricingDetail';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { ChevronUp, ShieldCheck, Star } from 'lucide-react';
+import { ChevronUp, ShieldCheck, Star, MessageCircle, Hammer, CheckCircle } from 'lucide-react';
+import { WHATSAPP_URL } from './constants';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState('home');
@@ -64,8 +65,7 @@ const App: React.FC = () => {
           <>
             <Hero />
             
-            {/* قسم نبذة عننا المطور */}
-            <div id="about-summary" className="py-24 bg-white/40">
+            <div id="about" className="py-24 bg-white/40">
               <div className="container mx-auto px-6">
                 <div className="grid md:grid-cols-2 gap-20 items-center">
                   <div className="relative order-2 md:order-1">
@@ -77,7 +77,7 @@ const App: React.FC = () => {
                         </div>
                         <h3 className="text-4xl font-black mb-8 leading-tight">مين HomeServe Pro؟</h3>
                         <p className="text-lg font-bold leading-relaxed mb-8 opacity-90">
-                          إحنا حلقة الوصل الموثوقة بينك وبين أحسن فنيين في مصر. بدأنا عشان نغير مفهوم الصيانة ونخليها تجربة سهلة، شفافة، ومضمونة ١٠٠٪.
+                          إحنا حلقة الوصل الموثوقة بينك وبين أحسن فنيين في مصر. بدأنا من سوهاج عشان نغير مفهوم الصيانة ونخليها تجربة سهلة، شفافة، ومضمونة ١٠٠٪.
                         </p>
                         <ul className="space-y-4 mb-10">
                           <li className="flex items-center gap-3 font-bold">
@@ -100,13 +100,13 @@ const App: React.FC = () => {
                   </div>
 
                   <div className="text-right order-1 md:order-2">
-                    <div className="flex items-center gap-2 text-orange-600 font-black mb-4 uppercase tracking-wider">
-                       <Star className="w-5 h-5 fill-orange-500" />
+                    <div className="flex items-center gap-2 text-orange-600 font-black mb-4 uppercase tracking-wider justify-end">
                        <span>الجودة هي الأساس</span>
+                       <Star className="w-5 h-5 fill-orange-500" />
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">إحنا مش مجرد تطبيق.. إحنا شركاء راحتك في بيتك</h2>
                     <p className="text-xl text-slate-600 leading-relaxed mb-10">
-                      في HomeServe Pro، هدفنا إنك لما تطلب خدمة، تنسى همها خالص. كل فني بينضم لينا بيعدي باختبارات فنية وسلوكية عشان نضمن لك أعلى مستوى من الاحترافية والأمان داخل بيتك.
+                      في HomeServe Pro، هدفنا إنك لما تطلب خدمة، تنسى همها خالص. كل فني بينضم لينا بيعدي باختبارات فنية وسلوكية عشان نضمن لك أعلى مستوى من الاحترافية والأمان داخل بيتك في سوهاج وكل مكان.
                     </p>
                     <div className="grid grid-cols-2 gap-8">
                       <div className="p-8 glass rounded-[2rem] border-blue-50 hover:bg-white transition-all shadow-md">
@@ -123,22 +123,62 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div onClick={() => setCurrentView('services')} className="cursor-pointer group">
+            <div id="services">
               <ServicesGrid />
               <div className="text-center pb-12 bg-white/50">
-                <button className="text-blue-600 font-black text-xl group-hover:underline">عرض كل تفاصيل الخدمات</button>
+                <button onClick={() => setCurrentView('services')} className="text-blue-600 font-black text-xl hover:underline">عرض كل تفاصيل الخدمات</button>
               </div>
             </div>
             
             <HowItWorks />
             <SocialProof />
             
-            <div onClick={() => setCurrentView('pricing')} className="cursor-pointer">
-              <Pricing />
-              <div className="text-center pb-12">
-                <button className="text-blue-600 font-black text-xl hover:underline">إزاي بنحسب الأسعار؟ شوف التفاصيل</button>
+            <Pricing />
+
+            {/* Join as Technician Section */}
+            <section id="join" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+              <div className="container mx-auto px-6">
+                <div className="bg-white rounded-[3rem] p-12 md:p-20 shadow-xl border border-blue-100 flex flex-col md:flex-row items-center gap-16">
+                  <div className="md:w-1/2 order-2 md:order-1">
+                    <div className="grid grid-cols-2 gap-6">
+                      <div className="bg-slate-50 p-6 rounded-2xl flex flex-col items-center text-center">
+                        <CheckCircle className="w-8 h-8 text-green-500 mb-4" />
+                        <p className="font-black text-slate-800">زيادة دخلك الشهري</p>
+                      </div>
+                      <div className="bg-slate-50 p-6 rounded-2xl flex flex-col items-center text-center">
+                        <CheckCircle className="w-8 h-8 text-green-500 mb-4" />
+                        <p className="font-black text-slate-800">حرية اختيار المواعيد</p>
+                      </div>
+                      <div className="bg-slate-50 p-6 rounded-2xl flex flex-col items-center text-center">
+                        <CheckCircle className="w-8 h-8 text-green-500 mb-4" />
+                        <p className="font-black text-slate-800">تدريب ودعم فني</p>
+                      </div>
+                      <div className="bg-slate-50 p-6 rounded-2xl flex flex-col items-center text-center">
+                        <CheckCircle className="w-8 h-8 text-green-500 mb-4" />
+                        <p className="font-black text-slate-800">نظام تقييم عادل</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:w-1/2 text-right order-1 md:order-2">
+                    <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center text-blue-600 mb-8 ml-0 mr-auto md:mr-0">
+                      <Hammer className="w-8 h-8" />
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">عندك مهارة؟ انضم لأقوى فريق فنيين في سوهاج</h2>
+                    <p className="text-xl text-slate-600 leading-relaxed mb-12">
+                      لو إنت فني (سباك، كهربائي، تكييف، أو نقاش) ومحترف في شغلك، هوم سيرف برو بتقدملك فرصة تزود دخلك وتشتغل في بيئة احترافية ومحترمة.
+                    </p>
+                    <a 
+                      href={WHATSAPP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-600 transition-all shadow-lg"
+                    >
+                      قدم طلب انضمام دلوقتي
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
             
             <AppDownload />
             <BookingForm />
@@ -149,7 +189,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen selection:bg-blue-100 selection:text-blue-600">
+    <div className="min-h-screen selection:bg-blue-100 selection:text-blue-600" style={{ scrollBehavior: 'smooth' }}>
       <motion.div
         className="fixed top-0 left-0 right-0 h-1.5 bg-blue-600 z-[60] origin-right"
         style={{ scaleX }}
@@ -184,9 +224,14 @@ const App: React.FC = () => {
                 
                 <h2 className="text-4xl md:text-6xl font-black mb-8 relative z-10">مستني إيه؟ ريح بالك دلوقتي!</h2>
                 <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
-                  <button onClick={() => setCurrentView('booking')} className="bg-[#f97316] text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl hover:scale-105 hover:bg-orange-600 transition-all">
+                  <a 
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#f97316] text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl hover:scale-105 hover:bg-orange-600 transition-all inline-block"
+                  >
                     احجز خدمتك دلوقتي
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             </div>
@@ -196,6 +241,17 @@ const App: React.FC = () => {
 
       <Footer />
 
+      {/* WhatsApp Floating Button */}
+      <a 
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-10 left-10 w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl z-50 flex items-center justify-center hover:scale-110 transition-all active:scale-95"
+        title="تواصل معنا عبر واتساب"
+      >
+        <MessageCircle className="w-9 h-9" />
+      </a>
+
       <AnimatePresence>
         {showTopBtn && (
           <motion.button
@@ -203,9 +259,9 @@ const App: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={scrollToTop}
-            className="fixed bottom-10 left-10 w-16 h-16 bg-blue-600 text-white rounded-full shadow-2xl z-50 flex items-center justify-center hover:bg-blue-700 hover:scale-110 transition-all active:scale-95"
+            className="fixed bottom-10 right-10 w-12 h-12 bg-white text-blue-600 border border-blue-100 rounded-full shadow-xl z-50 flex items-center justify-center hover:bg-slate-50 transition-all"
           >
-            <ChevronUp className="w-8 h-8" />
+            <ChevronUp className="w-6 h-6" />
           </motion.button>
         )}
       </AnimatePresence>

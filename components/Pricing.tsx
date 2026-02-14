@@ -1,10 +1,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, X } from 'lucide-react';
-import { PRICING_TIERS } from '../constants';
+import { Check, X, MessageCircle } from 'lucide-react';
+import { PRICING_TIERS, WHATSAPP_URL } from '../constants';
 
 const Pricing: React.FC = () => {
+  const scrollToForm = () => {
+    const el = document.getElementById('booking-form');
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="pricing" className="py-24 bg-white relative">
       <div className="container mx-auto px-6">
@@ -20,7 +25,7 @@ const Pricing: React.FC = () => {
             <motion.div
               key={tier.id}
               whileHover={{ y: -10 }}
-              className={`p-10 rounded-3xl border-2 transition-all relative ${
+              className={`p-10 rounded-3xl border-2 transition-all relative flex flex-col ${
                 tier.recommended 
                   ? 'border-blue-600 shadow-2xl shadow-blue-100 bg-white' 
                   : 'border-slate-100 bg-slate-50'
@@ -35,7 +40,7 @@ const Pricing: React.FC = () => {
               <div className="flex items-baseline gap-2 mb-8">
                 <span className="text-4xl font-black text-blue-600">يبدأ من {tier.price}</span>
               </div>
-              <ul className="space-y-4 mb-10">
+              <ul className="space-y-4 mb-10 flex-grow">
                 {tier.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 font-bold text-slate-600">
                     <Check className="w-5 h-5 text-green-500 shrink-0" />
@@ -43,13 +48,27 @@ const Pricing: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-5 rounded-2xl font-black text-lg transition-all ${
-                tier.recommended 
-                  ? 'bg-blue-600 text-white shadow-xl shadow-blue-200 hover:bg-blue-700' 
-                  : 'bg-white text-slate-900 border border-slate-200 hover:border-blue-300'
-              }`}>
-                احجز الخدمة
-              </button>
+              <div className="space-y-4">
+                <button 
+                  onClick={scrollToForm}
+                  className={`w-full py-5 rounded-2xl font-black text-lg transition-all ${
+                    tier.recommended 
+                      ? 'bg-blue-600 text-white shadow-xl shadow-blue-200 hover:bg-blue-700' 
+                      : 'bg-white text-slate-900 border border-slate-200 hover:border-blue-300'
+                  }`}
+                >
+                  اطلب عرض سعر
+                </button>
+                <a 
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-black text-slate-600 bg-slate-100 hover:bg-green-50 hover:text-green-600 transition-all"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  احجز عبر واتساب
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>

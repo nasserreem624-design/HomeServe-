@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2 } from 'lucide-react';
+import { GOVERNORATES } from '../constants';
 
 const BookingForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -17,7 +18,7 @@ const BookingForm: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden" id="booking">
+    <section className="py-24 bg-slate-50 relative overflow-hidden" id="booking-form">
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto glass rounded-[3rem] shadow-2xl border border-white p-8 md:p-16 flex flex-col md:flex-row gap-16 relative">
           <div className="md:w-1/2 text-right">
@@ -65,12 +66,10 @@ const BookingForm: React.FC = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="block font-black text-slate-700">المدينة</label>
+                      <label className="block font-black text-slate-700">المحافظة</label>
                       <select className="w-full p-4 rounded-xl border border-slate-200 outline-none bg-white">
-                        <option>القاهرة</option>
-                        <option>الجيزة</option>
-                        <option>التجمع</option>
-                        <option>أخرى</option>
+                        <option disabled>اختار المحافظة</option>
+                        {GOVERNORATES.map(gov => <option key={gov} value={gov}>{gov}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
