@@ -11,7 +11,7 @@ const Pricing: React.FC = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">باقات تناسب ميزانيتك</h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            أسعارنا واضحة من الأول، اختار النظام اللي يريحك. الأسعار المذكورة هي تقديرية لبدء الخدمة.
+            أسعارنا واضحة من الأول، اختار النظام اللي يريحك. الأسعار المذكورة هي تكلفة الخدمة الأساسية.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ const Pricing: React.FC = () => {
               )}
               <h3 className="text-2xl font-black text-slate-900 mb-4">{tier.title}</h3>
               <div className="flex items-baseline gap-2 mb-8">
-                <span className="text-4xl font-black text-blue-600">يبدأ من {tier.price}</span>
+                <span className="text-4xl font-black text-blue-600">{tier.price}</span>
               </div>
               <ul className="space-y-4 mb-10 flex-grow">
                 {tier.features.map((feature, i) => (
@@ -69,7 +69,7 @@ const Pricing: React.FC = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <h3 className="text-3xl font-black text-slate-900 mb-10 text-center">ليه HomeServe Pro أحسن من "أرقام الشوارع"؟</h3>
+          <h3 className="text-3xl font-black text-slate-900 mb-10 text-center">ليه HomeServe Pro الاختيار الأذكى بدل أرقام غير موثوقة؟</h3>
           <div className="glass rounded-3xl overflow-hidden shadow-xl border border-slate-100">
             <table className="w-full text-right">
               <thead>

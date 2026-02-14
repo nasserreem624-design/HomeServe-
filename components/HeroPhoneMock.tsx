@@ -13,7 +13,10 @@ import {
   Sparkles, 
   Hammer, 
   Paintbrush, 
-  Settings 
+  Settings,
+  User,
+  Search,
+  MapPin
 } from 'lucide-react';
 
 const HeroPhoneMock: React.FC = () => {
@@ -21,11 +24,6 @@ const HeroPhoneMock: React.FC = () => {
   const [isAlertDismissed, setIsAlertDismissed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // إعدادات التوقيت للتنبيه داخل الهاتف
-  const SHOW_DELAY = 1200;
-  const VISIBLE_DURATION = 3500;
-  const HIDDEN_DURATION = 2500;
 
   useEffect(() => {
     if (isAlertDismissed) return;
@@ -50,20 +48,23 @@ const HeroPhoneMock: React.FC = () => {
     };
   }, [isAlertVisible, isHovered, isAlertDismissed]);
 
+  const SHOW_DELAY = 1200;
+  const VISIBLE_DURATION = 3500;
+  const HIDDEN_DURATION = 2500;
+
   const promoLines = [
-    "دلوقتي تقدر تقسط خدمات التأسيس الكبيرة",
-    "ومش هتدفع رسوم خفية أو إكراميات",
-    "والكشف مجاني لو نفذت الخدمة"
+    "تقسيط خدمات التأسيس الكبيرة متاح دلوقتي",
+    "مفيش أي رسوم خفية أو إكراميات إجبارية",
+    "الكشف مجاني تماماً لو نفذت الخدمة"
   ];
 
   const services = [
-    { icon: <Wrench className="w-5 h-5" />, label: "سباكة", color: "text-blue-500" },
-    { icon: <Zap className="w-5 h-5" />, label: "كهرباء", color: "text-yellow-500" },
-    { icon: <Wind className="w-5 h-5" />, label: "تكييف", color: "text-cyan-500" },
-    { icon: <Sparkles className="w-5 h-5" />, label: "تنظيف", color: "text-green-500" },
-    { icon: <Settings className="w-5 h-5" />, label: "صيانة", color: "text-slate-500" },
-    { icon: <Paintbrush className="w-5 h-5" />, label: "دهان", color: "text-orange-500" },
-    { icon: <Hammer className="w-5 h-5" />, label: "نجارة", color: "text-amber-700" },
+    { icon: <Wrench className="w-5 h-5" />, label: "سباكة", color: "bg-blue-50 text-blue-600" },
+    { icon: <Zap className="w-5 h-5" />, label: "كهرباء", color: "bg-yellow-50 text-yellow-600" },
+    { icon: <Wind className="w-5 h-5" />, label: "تكييف", color: "bg-cyan-50 text-cyan-600" },
+    { icon: <Sparkles className="w-5 h-5" />, label: "نظافة", color: "bg-green-50 text-green-600" },
+    { icon: <Paintbrush className="w-5 h-5" />, label: "نقاشة", color: "bg-orange-50 text-orange-600" },
+    { icon: <Hammer className="w-5 h-5" />, label: "نجارة", color: "bg-amber-50 text-amber-700" },
   ];
 
   return (
@@ -73,131 +74,139 @@ const HeroPhoneMock: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* جسم الهاتف (Phone Frame) */}
-      <div className="relative bg-slate-900 p-3 rounded-[3.5rem] shadow-[0_50px_100px_rgba(0,0,0,0.25)] border-[8px] border-slate-800 overflow-hidden ring-1 ring-white/10">
+      <div className="relative bg-slate-900 p-3 rounded-[3.5rem] shadow-[0_50px_100px_rgba(30,64,175,0.2)] border-[8px] border-slate-800 overflow-hidden ring-1 ring-white/10">
         
-        {/* Notch / Speaker */}
-        <div className="absolute top-0 inset-x-0 h-8 bg-slate-800 w-32 mx-auto rounded-b-3xl z-40 flex items-center justify-center">
-          <div className="w-10 h-1.5 bg-slate-700 rounded-full"></div>
+        {/* Notch Area */}
+        <div className="absolute top-0 inset-x-0 h-7 bg-slate-800 w-28 mx-auto rounded-b-2xl z-40 flex items-center justify-center">
+          <div className="w-8 h-1 bg-slate-700 rounded-full"></div>
         </div>
 
-        {/* شاشة الهاتف (In-App UI) */}
-        <div className="bg-[#fdfaf2] rounded-[2.8rem] h-[560px] relative overflow-hidden flex flex-col pt-10">
+        {/* شاشة الهاتف (App UI) */}
+        <div className="bg-[#f8fafc] rounded-[2.8rem] h-[580px] relative overflow-hidden flex flex-col pt-8">
           
-          {/* Header UI */}
-          <div className="px-6 py-4 flex justify-between items-center border-b border-slate-100 bg-white/80 backdrop-blur-sm sticky top-0 z-20">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
-                <Settings className="w-4 h-4 animate-spin-slow" />
-              </div>
-              <span className="font-black text-sm text-blue-900 tracking-tighter">HomeServe<span className="text-orange-500">Pro</span></span>
+          {/* Top Status Bar Simulation */}
+          <div className="px-8 py-2 flex justify-between items-center opacity-40">
+            <span className="text-[10px] font-bold">9:41</span>
+            <div className="flex gap-1">
+              <div className="w-3 h-3 rounded-full border border-black/20"></div>
+              <div className="w-4 h-2 bg-black/20 rounded-sm"></div>
             </div>
-            <div className="w-8 h-8 rounded-full bg-slate-100"></div>
           </div>
 
-          {/* In-App Alert: Breaking News Section */}
-          <div className="p-4 relative min-h-[160px]">
-            <AnimatePresence mode="wait">
-              {isAlertVisible && !isAlertDismissed && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  className="bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] rounded-3xl p-4 shadow-xl shadow-blue-900/20 relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                  
-                  {/* Alert Header */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="bg-[#f97316] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-lg">
-                        خبر عاجل
-                      </span>
-                      <div className="w-1.5 h-1.5 bg-[#10b981] rounded-full animate-pulse"></div>
-                    </div>
-                    <button 
-                      onClick={() => { setIsAlertVisible(false); setIsAlertDismissed(true); }}
-                      className="text-white/40 hover:text-white"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+          {/* Centered Header with Platform Name */}
+          <div className="px-6 py-4 flex flex-col items-center border-b border-slate-100 bg-white/90 backdrop-blur-md sticky top-0 z-20">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-black text-lg text-blue-900 tracking-tighter">HomeServe<span className="text-orange-500">Pro</span></span>
+            </div>
+            <div className="flex items-center gap-1 text-[10px] text-slate-400 font-bold">
+              <MapPin className="w-3 h-3" />
+              <span>سوهاج، جرجا</span>
+            </div>
+          </div>
 
-                  {/* Alert Content */}
-                  <div className="space-y-2">
-                    {promoLines.map((line, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <div className="bg-white rounded-full p-0.5 mt-0.5 shadow-sm shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-[#10b981]" />
-                        </div>
-                        <p className="text-[11px] font-bold text-white leading-tight">
-                          {line}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          {/* App Body Content */}
+          <div className="flex-grow overflow-y-auto px-5 py-4 space-y-6 custom-scrollbar">
             
-            {!isAlertVisible && !isAlertDismissed && (
-              <div className="h-40 flex items-center justify-center text-slate-300 italic text-sm font-medium">
-                <Bell className="w-5 h-5 mr-2 opacity-50" />
-                انتظر العروض الجديدة...
+            {/* Search Bar Simulation */}
+            <div className="relative">
+              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                <Search className="w-4 h-4 text-slate-400" />
               </div>
-            )}
-
-            {isAlertDismissed && (
-              <div className="bg-orange-50 p-4 rounded-3xl border border-orange-100 flex items-center justify-center text-orange-600 font-black text-xs">
-                تم الاستلام، شكراً ليك!
+              <div className="w-full bg-slate-100 py-3 pr-10 pl-4 rounded-2xl text-[11px] font-bold text-slate-400 text-right">
+                بتدور على خدمة إيه؟
               </div>
-            )}
-          </div>
+            </div>
 
-          {/* Services Section */}
-          <div className="px-6 flex-grow overflow-y-auto pb-6 custom-scrollbar">
-            <h3 className="text-lg font-black text-slate-900 mb-4 text-right">اختار الخدمة</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {services.map((service, i) => (
-                <div 
-                  key={i} 
-                  className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center gap-2 hover:border-blue-200 transition-all cursor-pointer group"
-                >
-                  <div className={`${service.color} group-hover:scale-110 transition-transform`}>
-                    {service.icon}
+            {/* Breaking News Alert */}
+            <div className="relative min-h-[140px]">
+              <AnimatePresence mode="wait">
+                {isAlertVisible && !isAlertDismissed && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="bg-blue-600 rounded-2xl p-4 shadow-lg shadow-blue-200 relative overflow-hidden"
+                  >
+                    <div className="absolute -top-4 -left-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="bg-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full">عاجل</span>
+                        <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                      </div>
+                      <button onClick={() => setIsAlertDismissed(true)} className="text-white/40"><X className="w-3 h-3" /></button>
+                    </div>
+                    <div className="space-y-1.5">
+                      {promoLines.slice(0, 2).map((line, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-3 h-3 text-white/90 mt-0.5" />
+                          <p className="text-[10px] font-bold text-white leading-tight text-right">{line}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Categories Grid */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <button className="text-[10px] text-blue-600 font-bold">عرض الكل</button>
+                <h3 className="text-sm font-black text-slate-900">أهم الخدمات</h3>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {services.map((service, i) => (
+                  <div key={i} className="flex flex-col items-center gap-2">
+                    <div className={`${service.color} w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm hover:scale-105 transition-all cursor-pointer`}>
+                      {service.icon}
+                    </div>
+                    <span className="text-[10px] font-black text-slate-700">{service.label}</span>
                   </div>
-                  <span className="text-[11px] font-black text-slate-800">{service.label}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            {/* In-App CTA */}
-            <div className="mt-8 bg-blue-50 p-5 rounded-3xl border border-blue-100 text-center">
-              <p className="text-xs font-bold text-blue-600 mb-2">محتاج معاينة مجانية؟</p>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-xl text-xs font-black shadow-lg shadow-blue-200 active:scale-95 transition-all">
-                احجز فني دلوقتي
-              </button>
+            {/* Featured Banner */}
+            <div className="bg-gradient-to-l from-orange-500 to-orange-600 rounded-2xl p-4 text-white">
+              <p className="text-[10px] font-bold opacity-80 mb-1">خصم مستخدمي التطبيق</p>
+              <h4 className="text-xs font-black">خصم ٢٠٪ على أول زيارة نظافة</h4>
+              <button className="mt-3 bg-white text-orange-600 px-4 py-1.5 rounded-lg text-[9px] font-black">احجز بالخصم</button>
+            </div>
+
+          </div>
+
+          {/* Bottom Navigation Bar Simulation */}
+          <div className="px-8 py-4 border-t border-slate-100 bg-white flex justify-between items-center shrink-0">
+            <div className="flex flex-col items-center gap-1 opacity-30">
+              <User className="w-4 h-4" />
+              <span className="text-[8px] font-bold">حسابي</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 opacity-30">
+              <Bell className="w-4 h-4" />
+              <span className="text-[8px] font-bold">الإشعارات</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 text-blue-600">
+              <Wrench className="w-4 h-4" />
+              <span className="text-[8px] font-bold">طلباتي</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 opacity-30">
+              <Settings className="w-4 h-4" />
+              <span className="text-[8px] font-bold">الرئيسية</span>
             </div>
           </div>
 
-          {/* Home Bar */}
-          <div className="h-1.5 w-24 bg-slate-200 mx-auto mb-3 rounded-full shrink-0"></div>
+          {/* Bottom Handle */}
+          <div className="h-1 w-20 bg-slate-200 mx-auto mb-2 rounded-full shrink-0"></div>
         </div>
       </div>
 
-      {/* زينة عائمة حول الهاتف */}
+      {/* Decorations */}
       <motion.div 
-        animate={{ y: [0, -20, 0] }}
+        animate={{ y: [0, -15, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl text-blue-600 border border-blue-50 z-10"
+        className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl text-blue-600 border border-blue-50 z-10 hidden lg:block"
       >
-        <Wrench className="w-8 h-8" />
-      </motion.div>
-      <motion.div 
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -bottom-6 -left-6 p-4 bg-white rounded-2xl shadow-xl text-orange-500 border border-orange-50 z-10"
-      >
-        <Hammer className="w-8 h-8" />
+        <Wrench className="w-6 h-6" />
       </motion.div>
     </div>
   );

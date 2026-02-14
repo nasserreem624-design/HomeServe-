@@ -2,19 +2,48 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2 } from 'lucide-react';
-import { GOVERNORATES } from '../constants';
+import { CITIES, WHATSAPP_NUMBER } from '../constants';
 
 const BookingForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  // State for form fields
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    city: 'جرجا (المدينة)',
+    service: 'سباكة',
+    details: ''
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // تجهيز رسالة الواتساب بالبيانات
+    const message = `أهلاً HomeServe Pro، محتاج أحجز زيارة:
+- الاسم: ${formData.name}
+- الموبايل: ${formData.phone}
+- المدينة/المركز: ${formData.city}
+- الخدمة: ${formData.service}
+- التفاصيل: ${formData.details || 'لا يوجد'}`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-    }, 1500);
+      // فتح واتساب في نافذة جديدة
+      window.open(whatsappUrl, '_blank');
+    }, 1000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -58,40 +87,71 @@ const BookingForm: React.FC = () => {
                 >
                   <div className="space-y-2">
                     <label className="block font-black text-slate-700">الاسم بالكامل</label>
-                    <input required type="text" className="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all" placeholder="أحمد محمد" />
+                    <input 
+                      required 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      type="text" 
+                      className="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all" 
+                      placeholder="أحمد محمد" 
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="block font-black text-slate-700">رقم الموبايل</label>
-                    <input required type="tel" className="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all text-left" dir="ltr" placeholder="01x xxxx xxxx" />
+                    <input 
+                      required 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      type="tel" 
+                      className="w-full p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all text-left" 
+                      dir="ltr" 
+                      placeholder="01x xxxx xxxx" 
+                    />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="block font-black text-slate-700">المحافظة</label>
-                      <select className="w-full p-4 rounded-xl border border-slate-200 outline-none bg-white">
-                        <option disabled>اختار المحافظة</option>
-                        {GOVERNORATES.map(gov => <option key={gov} value={gov}>{gov}</option>)}
+                      <label className="block font-black text-slate-700">المدينة / المركز</label>
+                      <select 
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        className="w-full p-4 rounded-xl border border-slate-200 outline-none bg-white"
+                      >
+                        {CITIES.map(city => <option key={city} value={city}>{city}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
                       <label className="block font-black text-slate-700">نوع الخدمة</label>
-                      <select className="w-full p-4 rounded-xl border border-slate-200 outline-none bg-white">
-                        <option>سباكة</option>
-                        <option>كهرباء</option>
-                        <option>تكييف</option>
-                        <option>نظافة</option>
+                      <select 
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        className="w-full p-4 rounded-xl border border-slate-200 outline-none bg-white"
+                      >
+                        <option value="سباكة">سباكة</option>
+                        <option value="كهرباء">كهرباء</option>
+                        <option value="تكييف">تكييف</option>
+                        <option value="نظافة">نظافة</option>
                       </select>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="block font-black text-slate-700">وصف المشكلة (اختياري)</label>
-                    <textarea className="w-full p-4 rounded-xl border border-slate-200 h-24 outline-none" placeholder="مثلاً: عندي تسريب في حوض الحمام.."></textarea>
+                    <textarea 
+                      name="details"
+                      value={formData.details}
+                      onChange={handleChange}
+                      className="w-full p-4 rounded-xl border border-slate-200 h-24 outline-none" 
+                      placeholder="مثلاً: عندي تسريب في حوض الحمام.."
+                    ></textarea>
                   </div>
                   <div className="flex flex-col gap-4 pt-4">
                     <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
                       {loading ? 'جاري الإرسال...' : 'احجز زيارة دلوقتي'}
                       {!loading && <Send className="w-6 h-6" />}
                     </button>
-                    <button type="button" className="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition-all">اطلب عرض سعر الأول</button>
                   </div>
                 </motion.form>
               ) : (
@@ -104,9 +164,9 @@ const BookingForm: React.FC = () => {
                   <div className="bg-green-100 p-6 rounded-full text-green-600 mb-8">
                     <CheckCircle2 className="w-20 h-20" />
                   </div>
-                  <h3 className="text-3xl font-black text-slate-900 mb-4">تم استلام طلبك!</h3>
+                  <h3 className="text-3xl font-black text-slate-900 mb-4">تم فتح واتساب!</h3>
                   <p className="text-xl text-slate-600 leading-relaxed mb-8">
-                    فريقنا بيفحص طلبك دلوقتي وهنتواصل معاك في أقل من ١٥ دقيقة لتأكيد الحجز.
+                    لو واتساب مفتحش تلقائياً، تقدر تضغط على الزرار تحت عشان تبعت البيانات للفريق.
                   </p>
                   <button onClick={() => setSubmitted(false)} className="text-blue-600 font-bold hover:underline">ارسل طلب تاني</button>
                 </motion.div>
